@@ -112,6 +112,8 @@ public class Customer {
                 "," + phone +
                 "," + address +
                 "," + password + "\r\n";
+
+        
     }
 
     public boolean isTakenEmail() {

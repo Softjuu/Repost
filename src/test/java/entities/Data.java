@@ -3,7 +3,6 @@ package entities;
 import najah.edu.Login;
 import najah.edu.Order;
 import najah.edu.Order;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

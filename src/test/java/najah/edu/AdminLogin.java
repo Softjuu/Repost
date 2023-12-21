@@ -41,22 +41,22 @@ public class AdminLogin {
     }
 
     public void adminMenu() {
-        logger.info("To See all customers details enter number 1 ");
-        logger.info("To View all installation appointments enter number 2 ");
-        logger.info("To See all product enter number 3 ");
-      
+        System.err.println("To See all customers details enter number 1 ");
+        System.err.println("To View all installation appointments enter number 2 ");
+        System.err.println("To See all product enter number 3 ");
+        //System.err.println("To Add new order enter number 4");
 
-       logger.info("To logout enter number 8");
+        System.err.println("To logout enter number 8");
     }
 
     public void customerMenu() {
 
         while (true) {
-             logger.info("If you want to add a new customer, enter number 1");
-           logger.info("If you want to delete a customer, enter number 2");
-
-            logger.info("If you want to update a customer, enter number 3");
-            logger.info("If you want to go back, enter number 4");
+            System.err.println("If you want to add a new customer, enter number 1");
+            System.err.println("If you want to delete a customer, enter number 2");
+        //    System.err.println("If you want to contact a customer, enter number 3");
+            System.err.println("If you want to update a customer, enter number 3");
+            System.err.println("If you want to go back, enter number 4");
 
             Scanner in = new Scanner(System.in);
 
@@ -94,7 +94,7 @@ public class AdminLogin {
                                     int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
 
                                     if (customerUniqueId == uniqueCustomerIdInFile) {
-                                       
+                                        // Update the specified field in the line
                                         Customer customer = parseCustomerLine(line);
                                         updateField(customer, fieldName);
                                         newFileContent.append(customer.toString()).append("\n");
@@ -107,21 +107,21 @@ public class AdminLogin {
                             }
                         }
 
-                     
+                        // Write the modified content back to the file
                         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
                             bw.write(newFileContent.toString());
                         } catch (IOException e) {
-                          
+                            // Handle the exception
                         }
 
                     } catch (IOException e) {
-                        
+                        // Handle the exception
                     }
                 } else {
-                   logger.info("Invalid input. Please enter a valid number.");
+                    System.err.println("Invalid input. Please enter a valid number.");
                 }
             } else {
-              logger.info("Invalid input. Please enter a valid number.");
+                System.err.println("Invalid input. Please enter a valid number.");
                 in.next(); // Consume the invalid input to avoid an infinite loop
             }
         }
@@ -159,18 +159,18 @@ public class AdminLogin {
 
         switch (fieldName.toLowerCase()) {
             case "address":
-                logger.info("Enter the new address:");
+                System.err.println("Enter the new address:");
                 String newAddress = scanner.nextLine();
                 customer.setAddress(newAddress);
                 break;
             case "phone":
-                 logger.info("Enter the new phone number:");
+                System.err.println("Enter the new phone number:");
                 String newPhoneNumber = scanner.next();
                 customer.setPhone(newPhoneNumber);
                 break;
-           
+            // Add cases for other fields as needed
             default:
-               logger.info("Invalid field name");
+                System.err.println("Invalid field name");
                 break;
         }
     }
@@ -213,17 +213,65 @@ public class AdminLogin {
         }
         if (flag == 1) {
             Data.updateCustomers(customers);
-          logger.info("The customer removed successfully");
+            System.err.println("The customer removed successfully");
         } else {
-           logger.info("This Customer is not exist in our customers");
+            System.err.println("This Customer is not exist in our customers");
         }
 
     }
 
 
-   
+    public void orderMenu() {
+        boolean cond = true;
+        while (true) {
+
+          //  logger.info("If you want to change the product coast enter number 1");
+            logger.info("If you want to add product enter number 2");
+
+            logger.info("If you want to back enter number 3");
+
+            Scanner in = new Scanner(System.in);
+            int x;
+            x = in.nextInt();
+            if (x == 4) {
+                break;
+            }
+            if (x == 1) {
+
+                System.err.println("Enter the name update the product:");
+                Scanner scanner = new Scanner(System.in);
+                String UniqueId = scanner.next();
+                updateProduct(UniqueId);
 
 
+            } else if (x == 2) {
+                recordProduct();
+
+            }
+        }
+
+        }
+
+
+
+    public boolean isExistOrder(int id) {
+        Order order = Data.getOrderByID(id);
+        return order.getId() == id;
+    }
+
+    public void changeStatus(int orderId, String status) {
+        List<Order> orders = Data.getOrders();
+        Customer customer = new Customer();
+        for (Order order : orders) {
+            if (order.getId() == orderId) {
+                customer = order.getCustomer();
+                // order.setStatus(status);
+                break;
+            }
+        }
+        Data.updateOrders(orders);
+        //  notifyCustomer(customer);
+    }
 
 
 
@@ -236,18 +284,18 @@ public class AdminLogin {
               adminMenu();
            int option = in.nextInt();
           if (option == 8) {
-            logger.info("Goodbye");
+             logger.info("Goodbye");
                break;
           }
 
            else    if (option == 1) {
                   List<Customer> customers = Data.getCustomers();
-                 logger.info("****************************************************Customers**********************************************************");
-                  logger.info("ID               Name                                Email                           Mobile Number" +
+                  System.err.println("****************************************************Customers**********************************************************");
+                  System.err.println("ID               Name                                Email                           Mobile Number" +
                           "                        Address  " +
                           "");
                   for (Customer customer : customers) {
-                     logger.info(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) + customer.getEmail() + getSpaces(customer.getEmail())
+                      System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) + customer.getEmail() + getSpaces(customer.getEmail())
                               + customer.getPhone() + getSpaces(customer.getPhone()) + customer.getAddress()
                       );
                   }
@@ -270,7 +318,7 @@ public class AdminLogin {
               }
 
       } catch (Exception e) {
-           logger.info("Enter a valid option number ");
+          logger.info("Enter a valid option number ");
             break;
           }
       }
@@ -279,10 +327,10 @@ public class AdminLogin {
     public void workerMenu() {
 
         while (true) {
-          logger.info("If you want to add new installation appointments enter number 1");
-             logger.info("If you want to delete installation appointments enter number 2");
-            logger.info("If you want to update installation appointments time enter number 3");
-            logger.info("If you want to back enter number 4");
+            System.err.println("If you want to add new installation appointments enter number 1");
+            System.err.println("If you want to delete installation appointments enter number 2");
+            System.err.println("If you want to update installation appointments time enter number 3");
+            System.err.println("If you want to back enter number 4");
 
             Scanner in = new Scanner(System.in);
             int x;
@@ -298,9 +346,9 @@ public class AdminLogin {
                 deleteInstallation();
 
             } else if (x == 3) {
-               
+                //updateWorker();
 
-               logger.info("Enter the unique ID to update the appointment time:");
+                System.err.println("Enter the unique ID to update the appointment time:");
                 Scanner scanner = new Scanner(System.in);
                 int UniqueId = scanner.nextInt();
                 update(UniqueId);
@@ -325,7 +373,7 @@ public class AdminLogin {
                     int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
 
                     if (customerUniqueId == uniqueCustomerIdInFile) {
-                      
+                        // Update the date in the line
                         Installation appointment = parseInstallationLine(line);
                         updateTime(appointment);
                         newFileContent.append(appointment.toString()).append("\n");
@@ -333,20 +381,20 @@ public class AdminLogin {
                         newFileContent.append(line).append("\n");
                     }
                 } catch (NumberFormatException e) {
-                   
+                    // Handle the exception
                 }
             }
         }
 
-     
+        // Write the modified content back to the file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             bw.write(newFileContent.toString());
         } catch (IOException e) {
-           
+            // Handle the exception
         }
 
     } catch (IOException e) {
-       
+        // Handle the exception
     }
      }
 
@@ -366,17 +414,17 @@ public class AdminLogin {
                     }
 
                     public  void updateTime(Installation appointment) {
-                       logger.info("Enter the new time:");
+                        System.err.println("Enter the new time:");
                         Scanner scanner = new Scanner(System.in);
                         String newTimeStr = scanner.next();
-                      logger.info("Enter the new timing:");
+                        System.err.println("Enter the new timing:");
                         String newTiming = scanner.next();
                         NewTime(appointment,newTimeStr,newTiming);}
     public  void  NewTime(Installation appointment,String time,String timing) {
         LocalTime newTime = LocalTime.parse(time);
                         appointment.setTime(newTime);
         appointment.setTiming(timing);
-                        logger.info("Done");
+                        System.err.println("Done");
                     }
 
 
@@ -407,20 +455,20 @@ public class AdminLogin {
                             newFileContent.append(line).append("\n");
                         }
                     } catch (NumberFormatException e) {
-                     
+                        // Handle the exception
                     }
                 }
             }
 
-         
+            // Write the modified content back to the file
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
                 bw.write(newFileContent.toString());
             } catch (IOException e) {
-              
+                // Handle the exception
             }
 
         } catch (IOException e) {
-          
+            // Handle the exception
         }
     }
 
@@ -447,7 +495,7 @@ public class AdminLogin {
         double newTime = Double.parseDouble(time);
         appointment.setCost(newTime);
 
-         logger.info("Done");
+        System.err.println("Done");
     }
 
 
@@ -458,7 +506,7 @@ public class AdminLogin {
         } else if (x == 2) {
             deleteInstallation();
         } else if (x == 3) {
-      
+          // updateWorker();
 
         }
     }
@@ -562,8 +610,8 @@ public class AdminLogin {
     }
 
     public void printInstallation() {
-         logger.info("****************************************************Installation Appointments**********************************************************");
-       logger.info("InstallerID  ProductName  Service  " + " NameCustomer"
+        System.err.println("****************************************************Installation Appointments**********************************************************");
+        System.err.println("InstallerID  ProductName  Service  " + " NameCustomer"
                 +
                 "Date   Time   \t\t\t\t\t" +
                 "");
@@ -578,14 +626,14 @@ public class AdminLogin {
             String line;
 
             while ((line = bufferedReader.readLine()) != null) {
-                logger.info(line);
+                System.out.println(line);
 
             }
 
 
             bufferedReader.close();
         } catch (IOException e) {
-            logger.info("error while reading " + e.getMessage());
+            System.err.println("error while reading " + e.getMessage());
         }
 
 
@@ -593,8 +641,8 @@ public class AdminLogin {
 
 
     public void printProduct() {
-         logger.info("****************************************************Installation Appointments**********************************************************");
-        logger.info("ProductName  picture name  " + " state"
+        System.err.println("****************************************************Installation Appointments**********************************************************");
+        System.err.println("ProductName  picture name  " + " state"
                 +
                 "Catogry   cost    OrderID   \t\t\t\t\t" +
                 "");
@@ -609,14 +657,14 @@ public class AdminLogin {
             String line;
 
             while ((line = bufferedReader.readLine()) != null) {
-               logger.info(line);
+                System.out.println(line);
 
             }
 
 
             bufferedReader.close();
         } catch (IOException e) {
-             logger.info("error while reading " + e.getMessage());
+            System.err.println("error while reading " + e.getMessage());
         }
 
 
@@ -689,7 +737,7 @@ public class AdminLogin {
         System.err.println("Enter the order id ");
         worker.setOrderId(Integer.parseInt(in.nextLine()));
 
-        logger.info("Ok");
+        System.err.println("Ok");
         addProduct(worker);
     }
     public void addProduct(Product worker) {

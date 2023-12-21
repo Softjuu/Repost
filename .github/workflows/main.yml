@@ -9,10 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Step 1 - Checkout main branch from GitHub
+      - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          path: Repo  # Specify a local directory name
 
-      - name: Step 2 - Set up JDK 17
+      - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
           java-version: 17
@@ -26,27 +28,28 @@ jobs:
           overwrite-settings: true
           job-status: success
 
-
-      - name: Step 3 - Build Maven Project
+      - name: Build Maven Project
         run: mvn --batch-mode -DskipTests package
 
-      - name: Step 4 - Run test cases 
+      - name: Run test cases 
         run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
-        
+
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B jacoco:prepare-agent verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar jacoco:report -Dsonar.projectKey=Softjuu_Repost

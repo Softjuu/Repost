@@ -1,4 +1,5 @@
-package entities;
+package najah.edu;
+
 
 import najah.edu.Login;
 import najah.edu.Order;

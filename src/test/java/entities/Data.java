@@ -173,13 +173,34 @@ public class Data {
         return orders;
     }
 
+    public static Order getOrderByID(int id) {
+        Order order = new Order();
+        for (Order order1 : getOrders()) {
+            if (order1.getId() == id) {
+                order = order1;
+                break;
+            }
+        }
+        return order;
+    }
 
+    public static void updateOrders(List<Order> orders) {
+        try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/Back/order.txt", "rw")
+        ) {
+            removeFileContent("order");
+            raf.seek(0);
+            for (Order order : orders) {
+                raf.write(order.toString().getBytes());
+            }
+        } catch (Exception e) {
+            logger.info(msg);
 
-
+        }
+    }
 
     public static List<Installation> getInstallation() {
         List<Installation> workers = new ArrayList<>();
-        for (String value : getObjects("InstallationAppointments")) {
+        for (String value : getObjects("InstallationApointments")) {
             if (!value.isEmpty()) {
                 String[] arr = value.split(",");
                 if (arr.length >= 5 && !arr[0].isEmpty() && !arr[4].isEmpty()) {
@@ -207,7 +228,7 @@ public class Data {
 
     public static List<Installation> getInstallations() {
         List<Installation> workers = new ArrayList<>();
-        for (String value : getObjects("InstallationAppointments")) {
+        for (String value : getObjects("InstallationApointments")) {
             String[] arr = value.split(",");
 
             if (arr.length >= 7 && !arr[0].isEmpty() && !arr[4].isEmpty()&& !arr[5].isEmpty()&& !arr[6].isEmpty()) {
@@ -293,7 +314,12 @@ public class Data {
         }
         return workers;
     }
+    public static int getInstallationId() {
+        int id;
 
+        id=getInstallation().get(getInstallation().size()-1).getId();
+        return id+1;
+    }
     public static Installation getInstallationById(int id){
         Installation worker=new Installation();
         for (Installation worker1:getInstallations()){
@@ -316,8 +342,23 @@ public class Data {
         }
         return worker;
     }
+    Customer customer=new Customer();
 
-    
+    public static void updateInstallation(List<Installation>workers){
+        try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/Back/InstallationApointments.txt", "rw")
+        ){
+            removeFileContent("InstallationApointments");
+            raf.seek(0);
+            for (Installation worker:workers) {
+                raf.writeBytes(worker.getId() + "," + worker.getNameProduct() + "," + worker.getService() + "," + worker.getNameCustomer() + "," +
+                        worker.getDate()  + "\r\n");
+
+            }
+        }
+        catch(Exception e){
+            logger.info(msg);
+
+        }}
     }
 
 

@@ -21,18 +21,12 @@ import java.util.Scanner;
 
 
 public class AdminLogin {
-    CustomerLogin customerlogin;
 
-
-    static Logger logger1 = Logger.getLogger(Data.class.getName());
-
+    
     Admin admin = new Admin();
     Logger logger = Logger.getLogger(AdminLogin.class.getName());
-    String msg = "Enter valid number";
     String msgInv = "Invalid Input, try again";
-    String statusString = "waiting";
     private boolean logged;
-    private Customer customer;
 
     public void setEmail(String email) {
         this.admin.setEmail(email);

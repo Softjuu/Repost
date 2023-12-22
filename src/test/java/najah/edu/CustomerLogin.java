@@ -291,6 +291,10 @@ public class CustomerLogin {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+
+         public void setInstaller(InstallerAvailable customer) {
+        this.worker = worker;
+    }
     }
   
     public void updateMsg() {

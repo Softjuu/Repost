@@ -48,9 +48,7 @@ public class Product {
 
 
 
-    public Category getCategory() {
-        return category;
-    }
+  
     public void setCategory(Category category) {
         this.category = category;
     }
@@ -63,21 +61,17 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-    public String getPictureName() {
-        return pictureName;
-    }
+   
     public void setPictureName(String pictureName) {
         this.pictureName = pictureName;
     }
 
-    public String getMaterial() {
-        return material;
-    }
+   
     public void setMaterial(String material) {
         this.material = material;
     }
 
-    public Double getCost() {return cost;}
+
     public void setCost(Double cost) {this.cost = cost;}
     @Override
     public String toString() {
@@ -99,22 +93,6 @@ public class Product {
     }
 
 
-    public static double coverCost(String sizeOfCover){
-        double costOfProduct ;
-        double []costCat = ProductFile.getCostOfCategory();
-        if(sizeOfCover.equalsIgnoreCase("KING")){
-            costOfProduct=costCat[2];
-        }else if (sizeOfCover.equalsIgnoreCase("QUEEN")) {
-            costOfProduct=costCat[3];
-        }else if (sizeOfCover.equalsIgnoreCase("TWIN_XL")) {
-            costOfProduct=costCat[4];
-        }else if (sizeOfCover.equalsIgnoreCase("TWIN")) {
-            costOfProduct=costCat[5];
-        }else{
-            costOfProduct=costCat[6];
-        }
-        return costOfProduct;
-    }
 
 
     public static Builder builder(){

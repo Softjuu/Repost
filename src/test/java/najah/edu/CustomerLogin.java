@@ -45,7 +45,8 @@ public class CustomerLogin {
             while ((line = br.readLine()) != null) {
                 content.append(line).append("\n");
             }
-        } catch (IOException e) {\\
+        } catch (IOException e) {
+            \\
 
         }
         return content.toString();
@@ -68,7 +69,7 @@ public class CustomerLogin {
     public void customerPage(){
         System.err.println("Welcome To The Customer Dashboard ");
         Scanner in=new Scanner(System.in);
-        int j=1;
+    
         menu();
         try {
             int option = in.nextInt();
@@ -111,13 +112,13 @@ public class CustomerLogin {
 
                         System.out.println("Done. " + inputData + " has been added .");
                         menu();
-                        option = in.nextInt();
+                      
 
                     } else if (x ==2) {
 
                         System.err.println("OK");
                         menu();
-                        option = in.nextInt();
+                      
 
 
                     }
@@ -179,7 +180,7 @@ public class CustomerLogin {
                     System.err.println("ProductName  NamePicture  State  " + " Category"
                             +
                             "Coast \t\t\t\t\t" +
-                            "");
+                            " ");
 
                             String fileName = "src/main/resources/back1/product";
 

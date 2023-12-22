@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 import java.time.format.DateTimeParseException;
 public class CustomerLogin {
     private Customer customer;
-    private InstallerAvailable worker;
+   public InstallerAvailable worker;
    // static String path = "src/main/resources/back1/";
     static Logger logger = Logger.getLogger(Data.class.getName());
 
@@ -229,9 +229,7 @@ public class CustomerLogin {
 
                                     if (newDate.equals(installationDate) && available.equals("available")) {
 
-                                      //  LocalDate  time =   LocalDate.parse( parts[4]);
 
-                                        //String  timing =parts[5];
 
                                         System.out.println( parts[0] +"  "+"  " + parts[1] +"  "+"  "+ parts[2]  +"    " + parts[3] +"    " + parts[4] +"    " + parts[5]);
 
@@ -289,7 +287,7 @@ public class CustomerLogin {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    public void setInstaller(InstallerAvailable customer) {
+    public void setInstaller(InstallerAvailable worker) {
         this.worker = worker;
     }
 
@@ -318,8 +316,8 @@ public class CustomerLogin {
         String[] lines = currentContent.split("\n");
       //  String available = "not-available";
 
-        for (int i = 0; i < lines.length; i++) {
-            String[] parts = lines[i].split(",");
+        for (String line : lines) {
+            String[] parts = line.split(",");
 
             if (parts.length > 0) {
                 try {

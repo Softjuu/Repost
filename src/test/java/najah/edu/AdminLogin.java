@@ -491,8 +491,8 @@ public class AdminLogin {
         deleteInstallations(customerUniqueId);
     }
         public void deleteInstallations(int x) {
-      int  customerUniqueId=x;
-            String filePath = "src/main/resources/back1/InstallationApointments.txt";
+                 String filePath = "src/main/resources/back1/InstallationApointments.txt";
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             StringBuilder newFileContent = new StringBuilder();
             String line;
@@ -500,15 +500,11 @@ public class AdminLogin {
                 String[] parts = line.split(",");
 
                 if (parts.length > 0) {
-                    try {
-                        int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
+                    int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
 
-                        if (customerUniqueId != uniqueCustomerIdInFile) {
+                    if (x != uniqueCustomerIdInFile) {
 
-                            newFileContent.append(line).append("\n");
-                        }
-                    } catch (NumberFormatException e) {
-
+                        newFileContent.append(line).append("\n");
                     }
                 }
             }
@@ -518,10 +514,13 @@ public class AdminLogin {
                 writer.print(newFileContent.toString());
                 System.err.println(" removed successfully");
             } catch (IOException e) {
+                  e.printStackTrace();
+                System.err.println("An error occurred while writing to the file: " + e.getMessage());
 
             }
 
         } catch (IOException e) {
+    System.err.println("An IOException occurred: " + e.getMessage());
 
         }
 

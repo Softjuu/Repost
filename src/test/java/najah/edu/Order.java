@@ -16,7 +16,7 @@ public class Order {
 
     private String name;
 
-    private double total;
+
 
     private  List<Product> products;
 
@@ -58,9 +58,7 @@ public class Order {
     public List<Product> getProducts() {
       return products;
    }
-    public int getStatus() {
-        return number;
-    }
+  
 
    public void setName(String name) {
         this.name = name;

@@ -21,13 +21,18 @@ import java.util.Scanner;
 
 
 public class AdminLogin {
+    CustomerLogin customerlogin;
 
 
+    static Logger logger1 = Logger.getLogger(Data.class.getName());
 
     Admin admin = new Admin();
     Logger logger = Logger.getLogger(AdminLogin.class.getName());
+    String msg = "Enter valid number";
     String msgInv = "Invalid Input, try again";
+    String statusString = "waiting";
     private boolean logged;
+    private Customer customer;
 
     public void setEmail(String email) {
         this.admin.setEmail(email);
@@ -47,7 +52,7 @@ public class AdminLogin {
         while (true) {
             System.err.println("If you want to add a new customer, enter number 1");
             System.err.println("If you want to delete a customer, enter number 2");
-        //    System.err.println("If you want to contact a customer, enter number 3");
+            //    System.err.println("If you want to contact a customer, enter number 3");
             System.err.println("If you want to update a customer, enter number 3");
             System.err.println("If you want to go back, enter number 4");
 
@@ -147,7 +152,7 @@ public class AdminLogin {
         return customer;
     }
 
-   public static void updateField(Customer customer, String fieldName) {
+    public static void updateField(Customer customer, String fieldName) {
         Scanner scanner = new Scanner(System.in); // Declare the scanner here
 
         switch (fieldName.toLowerCase()) {
@@ -218,7 +223,7 @@ public class AdminLogin {
         boolean cond = true;
         while (true) {
 
-          //  logger.info("If you want to change the product coast enter number 1");
+            //  logger.info("If you want to change the product coast enter number 1");
             logger.info("If you want to add product enter number 2");
 
             logger.info("If you want to back enter number 3");
@@ -243,7 +248,7 @@ public class AdminLogin {
             }
         }
 
-        }
+    }
 
 
 
@@ -269,53 +274,53 @@ public class AdminLogin {
 
 
 
-     public void adminPage() {
-    Scanner in = new Scanner(System.in);
-      // boolean cond = true;
-       while (true) {
-          try {
-              adminMenu();
-           int option = in.nextInt();
-          if (option == 8) {
-             logger.info("Goodbye");
-               break;
-          }
+    public void adminPage() {
+        Scanner in = new Scanner(System.in);
+        // boolean cond = true;
+        while (true) {
+            try {
+                adminMenu();
+                int option = in.nextInt();
+                if (option == 8) {
+                    logger.info("Goodbye");
+                    break;
+                }
 
-           else    if (option == 1) {
-                  List<Customer> customers = Data.getCustomers();
-                  System.err.println("****************************************************Customers**********************************************************");
-                  System.err.println("ID               Name                                Email                           Mobile Number" +
-                          "                        Address  " +
-                          "");
-                  for (Customer customer : customers) {
-                      System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) + customer.getEmail() + getSpaces(customer.getEmail())
-                              + customer.getPhone() + getSpaces(customer.getPhone()) + customer.getAddress()
-                      );
-                  }
-                  customerMenu();
+                else    if (option == 1) {
+                    List<Customer> customers = Data.getCustomers();
+                    System.err.println("****************************************************Customers**********************************************************");
+                    System.err.println("ID               Name                                Email                           Mobile Number" +
+                            "                        Address  " +
+                            "");
+                    for (Customer customer : customers) {
+                        System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) + customer.getEmail() + getSpaces(customer.getEmail())
+                                + customer.getPhone() + getSpaces(customer.getPhone()) + customer.getAddress()
+                        );
+                    }
+                    customerMenu();
 
-              }
+                }
 
-           else if (option == 2) {
-              printInstallation();
+                else if (option == 2) {
+                    printInstallation();
 
-                  workerMenu();
-              }
+                    workerMenu();
+                }
 
-           else if (option == 3) {
-              printProduct();
-                  orderMenu();
+                else if (option == 3) {
+                    printProduct();
+                    orderMenu();
 
-              } else if (option == 4) {
-                  //   takenOrder();
-              }
+                } else if (option == 4) {
+                    //   takenOrder();
+                }
 
-      } catch (Exception e) {
-          logger.info("Enter a valid option number ");
-            break;
-          }
-      }
-     }
+            } catch (Exception e) {
+                logger.info("Enter a valid option number ");
+                break;
+            }
+        }
+    }
 
     public void workerMenu() {
 
@@ -350,81 +355,81 @@ public class AdminLogin {
 
     public  void update(int x) {
 
-    int customerUniqueId =x;
+        int customerUniqueId =x;
 
-    String filePath = "src/main/resources/back1/InstallationApointments.txt";
+        String filePath = "src/main/resources/back1/InstallationApointments.txt";
 
-                try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-        StringBuilder newFileContent = new StringBuilder();
-        String line;
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            StringBuilder newFileContent = new StringBuilder();
+            String line;
 
-        while ((line = br.readLine()) != null) {
-            String[] parts = line.split(",");
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
 
-            if (parts.length > 0) {
-                try {
-                    int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
+                if (parts.length > 0) {
+                    try {
+                        int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
 
-                    if (customerUniqueId == uniqueCustomerIdInFile) {
-                        // Update the date in the line
-                        Installation appointment = parseInstallationLine(line);
-                        updateTime(appointment);
-                        newFileContent.append(appointment.toString()).append("\n");
-                    } else {
-                        newFileContent.append(line).append("\n");
+                        if (customerUniqueId == uniqueCustomerIdInFile) {
+                            // Update the date in the line
+                            Installation appointment = parseInstallationLine(line);
+                            updateTime(appointment);
+                            newFileContent.append(appointment.toString()).append("\n");
+                        } else {
+                            newFileContent.append(line).append("\n");
+                        }
+                    } catch (NumberFormatException e) {
+                        // Handle the exception
                     }
-                } catch (NumberFormatException e) {
-                    // Handle the exception
                 }
             }
-        }
 
-        // Write the modified content back to the file
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
-            bw.write(newFileContent.toString());
+            // Write the modified content back to the file
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+                bw.write(newFileContent.toString());
+            } catch (IOException e) {
+                // Handle the exception
+            }
+
         } catch (IOException e) {
             // Handle the exception
         }
-
-    } catch (IOException e) {
-        // Handle the exception
     }
-     }
 
 
 
 
-                    private static Installation parseInstallationLine(String line) {
-                        String[] parts = line.split(",");
-                        int id = Integer.parseInt(parts[0]);
-                        String nameProduct = parts[1];
-                        String service = parts[2];
-                        String nameCustomer = parts[3];
-                        LocalDate date = LocalDate.parse(parts[4]); // Assuming the date is in the format yyyy-MM-dd
-                        LocalTime time = LocalTime.parse(parts[5]);
-                        String timing = parts[6];
-                        return new Installation(id, nameProduct, service, nameCustomer, date,time,timing);
-                    }
+    private static Installation parseInstallationLine(String line) {
+        String[] parts = line.split(",");
+        int id = Integer.parseInt(parts[0]);
+        String nameProduct = parts[1];
+        String service = parts[2];
+        String nameCustomer = parts[3];
+        LocalDate date = LocalDate.parse(parts[4]); // Assuming the date is in the format yyyy-MM-dd
+        LocalTime time = LocalTime.parse(parts[5]);
+        String timing = parts[6];
+        return new Installation(id, nameProduct, service, nameCustomer, date,time,timing);
+    }
 
-                    public  void updateTime(Installation appointment) {
-                        System.err.println("Enter the new time:");
-                        Scanner scanner = new Scanner(System.in);
-                        String newTimeStr = scanner.next();
-                        System.err.println("Enter the new timing:");
-                        String newTiming = scanner.next();
-                        NewTime(appointment,newTimeStr,newTiming);}
+    public  void updateTime(Installation appointment) {
+        System.err.println("Enter the new time:");
+        Scanner scanner = new Scanner(System.in);
+        String newTimeStr = scanner.next();
+        System.err.println("Enter the new timing:");
+        String newTiming = scanner.next();
+        NewTime(appointment,newTimeStr,newTiming);}
     public  void  NewTime(Installation appointment,String time,String timing) {
         LocalTime newTime = LocalTime.parse(time);
-                        appointment.setTime(newTime);
+        appointment.setTime(newTime);
         appointment.setTiming(timing);
-                        System.err.println("Done");
-                    }
+        System.err.println("Done");
+    }
 
 
 
     public  void updateProduct(String x) {
 
-       String customerUniqueId =x;
+        String customerUniqueId =x;
 
         String filePath = "src/main/resources/back1/product";
 
@@ -441,7 +446,7 @@ public class AdminLogin {
 
                         if (customerUniqueId .equals(uniqueCustomerIdInFile) ) {
                             // Update the date in the line
-                           Product appointment = parseProductLine(line);
+                            Product appointment = parseProductLine(line);
                             updateState(appointment);
                             newFileContent.append(appointment.toString()).append("\n");
                         } else {
@@ -499,7 +504,7 @@ public class AdminLogin {
         } else if (x == 2) {
             deleteInstallation();
         } else if (x == 3) {
-          // updateWorker();
+            // updateWorker();
 
         }
     }
@@ -544,9 +549,9 @@ public class AdminLogin {
 
         deleteInstallations(customerUniqueId);
     }
-        public void deleteInstallations(int x) {
-      int  customerUniqueId=x;
-            String filePath = "src/main/resources/back1/InstallationApointments.txt";
+    public void deleteInstallations(int x) {
+        int  customerUniqueId=x;
+        String filePath = "src/main/resources/back1/InstallationApointments.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             StringBuilder newFileContent = new StringBuilder();
             String line;
@@ -580,7 +585,7 @@ public class AdminLogin {
         }
 
 
-}
+    }
     public void recordWorker() {
         Scanner in=new Scanner(System.in);
         Installation worker=new Installation();
@@ -664,16 +669,16 @@ public class AdminLogin {
     }
 
 
-        public boolean isExistCustomer ( int id){
-            int flag = 0;
-            for (Customer customer : Data.getCustomers()) {
-                if (customer.getId() == id) {
-                    flag = 1;
-                    break;
-                }
+    public boolean isExistCustomer ( int id){
+        int flag = 0;
+        for (Customer customer : Data.getCustomers()) {
+            if (customer.getId() == id) {
+                flag = 1;
+                break;
             }
-            return flag == 1;
         }
+        return flag == 1;
+    }
 
     public boolean isExistInstallation ( int id){
         int flag = 0;
@@ -693,7 +698,7 @@ public class AdminLogin {
 
 
     public String getSpaces(String att) {
-       // return " ".repeat(Math.max(0, 35 - att.length()));
+        // return " ".repeat(Math.max(0, 35 - att.length()));
         return "";
     }
 
@@ -739,4 +744,4 @@ public class AdminLogin {
         logger.info("The product added successfully");
     }
 
-    }
+}

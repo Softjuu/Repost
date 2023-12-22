@@ -23,7 +23,7 @@ import java.time.format.DateTimeParseException;
 public class CustomerLogin {
     private Customer customer;
     private InstallerAvailable worker;
-    static String path = "src/main/resources/back1/";
+  
     static Logger logger = Logger.getLogger(Data.class.getName());
 
     public void menu(){

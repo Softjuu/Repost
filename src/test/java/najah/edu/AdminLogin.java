@@ -1,35 +1,47 @@
-import entities.Customer;
-import entities.Admin;
-import entities.Installation;
-import entities.Product;
-import entities.Category;
-import data.Data;
+package edu;
+
+import entities.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import java.io.*;
+import java.io.FileWriter;
 import java.time.LocalDate;
+
+
 import java.time.LocalTime;
+import java.util.logging.Logger;
+
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Logger;
+
+
+
 
 public class AdminLogin {
 
-    private Admin admin;
-    private Logger logger = Logger.getLogger(AdminLogin.class.getName());
+
+
+    Admin admin = new Admin();
+    Logger logger = Logger.getLogger(AdminLogin.class.getName());
+    String msgInv = "Invalid Input, try again";
     private boolean logged;
 
     public void setEmail(String email) {
+
         this.admin.setEmail(email);
     }
 
-   public void adminMenu() {
+    public void adminMenu() {
         System.err.println("To See all customers details enter number 1 ");
         System.err.println("To View all installation appointments enter number 2 ");
         System.err.println("To See all product enter number 3 ");
+        //System.err.println("To Add new order enter number 4");
+
         System.err.println("To logout enter number 8");
     }
-
 
     public void customerMenu() {
 
@@ -244,33 +256,51 @@ public class AdminLogin {
 
 
      public void adminPage() {
-   Scanner in = new Scanner(System.in);
-        while (true) {
-            try {
-                adminMenu();
-                int option = in.nextInt();
-                if (option == 8) {
-                    logger.info("Goodbye");
-                    break;
-                } else if (option == 1) {
-                    printCustomers();
-                    customerMenu();
-                } else if (option == 2) {
-                    printInstallation();
-                    workerMenu();
-                } else if (option == 3) {
-                    printProduct();
-                    orderMenu();
-                } else {
-                    System.err.println("Invalid input. Please enter a valid number.");
-                }
-            } catch (Exception e) {
-                logger.info("Enter a valid option number ");
-                break;
-            }
-        }
-    }
+    Scanner in = new Scanner(System.in);
+      // boolean cond = true;
+       while (true) {
+          try {
+              adminMenu();
+           int option = in.nextInt();
+          if (option == 8) {
+             logger.info("Goodbye");
+               break;
+          }
 
+           else    if (option == 1) {
+                  List<Customer> customers = Data.getCustomers();
+                  System.err.println("****************************************************Customers**********************************************************");
+                  System.err.println("ID               Name                                Email                           Mobile Number" +
+                          "                        Address  ");
+                  for (Customer customer : customers) {
+                      System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces() + customer.getEmail() + getSpaces()
+                              + customer.getPhone() + getSpaces() + customer.getAddress()
+                      );
+                  }
+                  customerMenu();
+
+              }
+
+           else if (option == 2) {
+              printInstallation();
+
+                  workerMenu();
+              }
+
+           else if (option == 3) {
+              printProduct();
+                  orderMenu();
+
+              } else if (option == 4) {
+                  //   takenOrder();
+              }
+
+      } catch (Exception e) {
+          logger.info("Enter a valid option number ");
+            break;
+          }
+      }
+     }
 
     public void workerMenu() {
 
@@ -515,21 +545,6 @@ public class AdminLogin {
         System.err.println("Ok");
         addInstallation(worker);
     }
-
-       private void printCustomers() {
-        System.err.println("****************************************************Customers**********************************************************");
-        System.err.println("ID               Name                                Email                           Mobile Number" +
-                "                        Address  ");
-
-        List<Customer> customers = Data.getCustomers();
-        for (Customer customer : customers) {
-            System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) +
-                    customer.getEmail() + getSpaces(customer.getEmail()) +
-                    customer.getPhone() + getSpaces(customer.getPhone()) +
-                    customer.getAddress());
-        }
-    }
-    
 
     public void printInstallation() {
         System.err.println("****************************************************Installation Appointments**********************************************************");

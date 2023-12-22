@@ -1,4 +1,4 @@
-package edu;
+package najah.edu;
 
 import entities.*;
 import java.io.BufferedReader;
@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 
 import java.time.LocalTime;
+import java.util.*;
 import java.util.logging.Logger;
 
 import java.util.InputMismatchException;
@@ -21,6 +22,7 @@ import java.util.Scanner;
 
 
 public class AdminLogin {
+ 
 
 
 
@@ -30,7 +32,6 @@ public class AdminLogin {
     private boolean logged;
 
     public void setEmail(String email) {
-
         this.admin.setEmail(email);
     }
 
@@ -247,11 +248,9 @@ public class AdminLogin {
 
 
 
+   
 
-
-
-
-
+  
 
 
 
@@ -271,10 +270,10 @@ public class AdminLogin {
                   List<Customer> customers = Data.getCustomers();
                   System.err.println("****************************************************Customers**********************************************************");
                   System.err.println("ID               Name                                Email                           Mobile Number" +
-                          "                        Address  ");
+                     "                        Address");
                   for (Customer customer : customers) {
-                      System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces() + customer.getEmail() + getSpaces()
-                              + customer.getPhone() + getSpaces() + customer.getAddress()
+                      System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) + customer.getEmail() + getSpaces(customer.getEmail())
+                              + customer.getPhone() + getSpaces(customer.getPhone()) + customer.getAddress()
                       );
                   }
                   customerMenu();
@@ -292,7 +291,7 @@ public class AdminLogin {
                   orderMenu();
 
               } else if (option == 4) {
-                  //   takenOrder();
+                   //  takenOrder();
               }
 
       } catch (Exception e) {
@@ -335,7 +334,9 @@ public class AdminLogin {
 
     public  void update(int x) {
 
-        String filePath = "src/main/resources/back1/InstallationApointments.txt";
+    int customerUniqueId =x;
+
+    String filePath = "src/main/resources/back1/InstallationApointments.txt";
 
                 try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
         StringBuilder newFileContent = new StringBuilder();
@@ -348,11 +349,11 @@ public class AdminLogin {
                 try {
                     int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
 
-                    if (x == uniqueCustomerIdInFile) {
+                    if (customerUniqueId == uniqueCustomerIdInFile) {
                         // Update the date in the line
                         Installation appointment = parseInstallationLine(line);
                         updateTime(appointment);
-                        newFileContent.append(appointment).append("\n");
+                        newFileContent.append(appointment.toString()).append("\n");
                     } else {
                         newFileContent.append(line).append("\n");
                     }
@@ -407,6 +408,8 @@ public class AdminLogin {
 
     public  void updateProduct(String x) {
 
+       String customerUniqueId =x;
+
         String filePath = "src/main/resources/back1/product";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -420,11 +423,11 @@ public class AdminLogin {
                     try {
                         String uniqueCustomerIdInFile =(parts[0]);
 
-                        if (x.equals(uniqueCustomerIdInFile) ) {
+                        if (customerUniqueId .equals(uniqueCustomerIdInFile) ) {
                             // Update the date in the line
                            Product appointment = parseProductLine(line);
                             updateState(appointment);
-                            newFileContent.append(appointment).append("\n");
+                            newFileContent.append(appointment.toString()).append("\n");
                         } else {
                             newFileContent.append(line).append("\n");
                         }
@@ -474,9 +477,43 @@ public class AdminLogin {
 
 
 
+    public void workerOptions(int x) {
+        if (x == 1) {
+            recordWorker();
+        } else if (x == 2) {
+            deleteInstallation();
+        } else if (x == 3) {
+          // updateWorker();
+
+        }
+    }
 
 
 
+    public void updateInstallations(String attribute, String value, Installation worker) {
+
+        if (attribute.equalsIgnoreCase("ProductName")) {
+            worker.setNameProduct(value);
+        } else if (attribute.equalsIgnoreCase("Service")) {
+            worker.setService(value);
+        } else if (attribute.equalsIgnoreCase("CustomerName")) {
+            worker.setNameCustomer(value);
+        } else if (attribute.equalsIgnoreCase("Date")) {
+            worker.setDate(LocalDate.parse(value));
+        }
+
+        List<Installation> workers = Data.getInstallation();
+        for (Installation worker1 : workers) {
+            int ind = workers.indexOf(worker1);
+            if (worker1.getId() == worker.getId()) {
+                workers.remove(ind);
+                workers.add(ind, worker);
+                break;
+            }
+        }
+
+        Data.updateInstallation(workers);
+    }
 
 
 
@@ -491,7 +528,8 @@ public class AdminLogin {
 
         deleteInstallations(customerUniqueId);
     }
-        public void deleteInstallations(int x) throws NumberFormatException {
+        public void deleteInstallations(int x) {
+      int  customerUniqueId=x;
             String filePath = "src/main/resources/back1/InstallationApointments.txt";
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             StringBuilder newFileContent = new StringBuilder();
@@ -500,26 +538,28 @@ public class AdminLogin {
                 String[] parts = line.split(",");
 
                 if (parts.length > 0) {
-                    int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
+                    try {
+                        int uniqueCustomerIdInFile = Integer.parseInt(parts[0]);
 
-                    if (x != uniqueCustomerIdInFile) {
+                        if (customerUniqueId != uniqueCustomerIdInFile) {
 
-                        newFileContent.append(line).append("\n");
+                            newFileContent.append(line).append("\n");
+                        }
+                    } catch (NumberFormatException e) {
+
                     }
                 }
             }
 
 
             try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-                writer.print(newFileContent);
+                writer.print(newFileContent.toString());
                 System.err.println(" removed successfully");
             } catch (IOException e) {
-                e.printStackTrace();
-                System.err.println("An error occurred while writing to the file: " + e.getMessage());
+
             }
 
         } catch (IOException e) {
-            System.err.println("An IOException occurred: " + e.getMessage());
 
         }
 
@@ -548,8 +588,10 @@ public class AdminLogin {
 
     public void printInstallation() {
         System.err.println("****************************************************Installation Appointments**********************************************************");
-        System.err.println("InstallerID  ProductName  Service  NameCustomer" +
-                "Date   Time   \t\t\t\t\t");
+        System.err.println("InstallerID  ProductName  Service  " + " NameCustomer"
+                +
+                "Date   Time   \t\t\t\t\t" +
+                "");
 
         String fileName = "src/main/resources/back1/InstallationApointments.txt";
 
@@ -577,8 +619,10 @@ public class AdminLogin {
 
     public void printProduct() {
         System.err.println("****************************************************Installation Appointments**********************************************************");
-        System.err.println("ProductName  picture name  state" +
-                "Catogry   cost    OrderID   \t\t\t\t\t");
+        System.err.println("ProductName  picture name  " + " state"
+                +
+                "Catogry   cost    OrderID   \t\t\t\t\t" +
+                "");
 
         String fileName = "src/main/resources/back1/product";
 
@@ -615,7 +659,16 @@ public class AdminLogin {
             return flag == 1;
         }
 
-
+    public boolean isExistInstallation ( int id){
+        int flag = 0;
+        for (Installation customer : Data.getInstallations()) {
+            if (customer.getId() == id) {
+                flag = 1;
+                break;
+            }
+        }
+        return flag == 1;
+    }
 
 
     public void setAdmin(Admin admin) {
@@ -623,12 +676,13 @@ public class AdminLogin {
     }
 
 
-    public String getSpaces() {
-       // return " ".repeat(Math.max(0, 35 - att.length()));
-        return "";
+    public String getSpaces(String att) {
+        return " ".repeat(Math.max(0, 35 - att.length()));
     }
 
-
+    public void notExistMsg() {
+        logger.info("This Order is not exist on our orders");
+    }
 
     public void setLogged(boolean b) {
         this.logged = b;

@@ -89,7 +89,7 @@ public class AdminLogin {
                                         // Update the specified field in the line
                                         Customer customer = parseCustomerLine(line);
                                         updateField(customer, fieldName);
-                                        newFileContent.append(customer.toString()).append("\n");
+                                        newFileContent.append(customer).append("\n");
                                     } else {
                                         newFileContent.append(line).append("\n");
                                     }
@@ -214,7 +214,6 @@ public class AdminLogin {
 
 
     public void orderMenu() {
-        boolean cond = true;
         while (true) {
 
           //  logger.info("If you want to change the product coast enter number 1");
@@ -246,24 +245,9 @@ public class AdminLogin {
 
 
 
-    public boolean isExistOrder(int id) {
-        Order order = Data.getOrderByID(id);
-        return order.getId() == id;
-    }
 
-    public void changeStatus(int orderId, String status) {
-        List<Order> orders = Data.getOrders();
-        Customer customer = new Customer();
-        for (Order order : orders) {
-            if (order.getId() == orderId) {
-                customer = order.getCustomer();
-                // order.setStatus(status);
-                break;
-            }
-        }
-        Data.updateOrders(orders);
-        //  notifyCustomer(customer);
-    }
+
+ 
 
 
 

@@ -2,10 +2,10 @@ package najah.edu;
 import entities.Customer;
 import entities.Data;
 import java.util.Scanner;
-import java.util.logging.Logger;
-import entities.Installation;
+
+
 public class RecordCustomer {
-    Logger logger = Logger.getLogger(RecordCustomer.class.getName());
+
     public Customer newCustomer(){
         Scanner in=new Scanner(System.in);
         Customer customer = new Customer();
@@ -16,7 +16,7 @@ public class RecordCustomer {
         System.err.println("Enter your Phone ");
         customer.setPhone(in.nextLine());
         System.err.println("Enter cust" +
-                "" +
+                " " +
                 "omer Address ");
         customer.setAddress(in.nextLine());
         System.err.println("Enter your Password ");
@@ -41,18 +41,7 @@ public class RecordCustomer {
         Data.storeObject("Login",login);
         System.err.println("Donn, Thank you !");
     }
-    public void addNewInstallation(Installation customer) {
-        Data.storeObject("InstallationApointments",customer);
-        Installation login=new Installation();
-        login.setId(customer.getId());
-        login.setNameProduct(customer.getNameProduct());
-        login.setService(customer.getService());
-        login.setNameCustomer(customer.getNameCustomer());
-        login.setDate(customer.getDate());
-        Data.storeObject("InstallationApointments",login);
-        System.err.println("Donn, Thank you !");
-    }
-
+   
 
     public void takenMsg() {
         System.err.println("This email is already taken. ");

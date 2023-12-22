@@ -80,7 +80,7 @@ public class CustomerLogin {
                     String path = "src/main/resources/back1/";
                     try {
                     Scanner scanner = new Scanner(System.in);
-                   logger.info"Enter the name of Product:");
+                   logger.info("Enter the name of Product:");
                     String inputData = scanner.nextLine();
 
 

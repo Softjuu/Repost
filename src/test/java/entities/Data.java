@@ -160,7 +160,183 @@ public class Data {
             Order order = new Order();
 
             Customer customer = getCustomerById(Integer.parseInt(arr[0]));
+
             order.setCustomer(customer);
+            order.setId(Integer.parseInt(arr[1]));
+            order.setName(arr[2]);
+            order.setNumber(Integer.parseInt(arr[3]));
+
+            products = ProductFile.getProductByOrder(order.getId());
+            order.setProducts(products);
+            orders.add(order);
+        }
+        return orders;
+    }
+
+   
+
+   
+    public static List<Installation> getInstallation() {
+        List<Installation> workers = new ArrayList<>();
+        for (String value : getObjects("InstallationApointments")) {
+            if (!value.isEmpty()) {
+                String[] arr = value.split(",");
+                if (arr.length >= 5 && !arr[0].isEmpty() && !arr[4].isEmpty()) {
+                    try {
+                        Installation worker = new Installation(
+                                Integer.parseInt(arr[0].trim()),
+                                arr[1].trim(),
+                                arr[2].trim(),
+                                arr[3].trim(),
+                                LocalDate.parse(arr[4].trim()),
+                                LocalTime.parse(arr[5]),
+                                arr[6]
+                        );
+                        workers.add(worker);
+                    } catch (NumberFormatException | DateTimeParseException e) {
+                        System.out.println("Warning: Invalid data format. Skipping entry. Data: " + Arrays.toString(arr));
+                    }
+                } else {
+                    System.out.println("Warning: Incomplete data. Skipping entry. Data: " + Arrays.toString(arr));
+                }
+            }
+        }
+        return workers;
+    }
+
+    public static List<Installation> getInstallations() {
+        List<Installation> workers = new ArrayList<>();
+        for (String value : getObjects("InstallationApointments")) {
+            String[] arr = value.split(",");
+
+            if (arr.length >= 7 && !arr[0].isEmpty() && !arr[4].isEmpty()&& !arr[5].isEmpty()&& !arr[6].isEmpty()) {
+                try {
+                    Installation worker = new Installation(
+                            Integer.parseInt(arr[0]),
+                            arr[1],
+                            arr[2],
+                            arr[3],
+                            LocalDate.parse(arr[4]),
+                            LocalTime.parse(arr[5]),
+                            arr[6]
+                    );
+
+                    workers.add(worker);
+                } catch (NumberFormatException | DateTimeParseException e) {
+                    System.err.println("Error parsing data: " + Arrays.toString(arr));
+                    e.printStackTrace();
+                }
+            } else {
+                System.err.println("Invalid data: " + Arrays.toString(arr));
+            }
+        }
+        return workers;
+    }
 
 
-            
+
+
+    public static List<Product> getProduct() {
+        List<Product> workers = new ArrayList<>();
+        for (String value : getObjects("product")) {
+            String[] arr = value.split(",");
+
+            if (arr.length >= 6 && !arr[0].isEmpty() && !arr[4].isEmpty()&& !arr[5].isEmpty()) {
+                try {
+                  Product worker = new Product(
+                           (arr[0]),
+                            arr[1],
+                            arr[2],
+                           Category.valueOf(arr[3]) ,
+                          Double.parseDouble(arr[4]),
+                            Integer.parseInt(arr[5])
+
+                    );
+
+                    workers.add(worker);
+                } catch (NumberFormatException | DateTimeParseException e) {
+                    System.err.println("Error parsing data: " + Arrays.toString(arr));
+                    e.printStackTrace();
+                }
+            } else {
+                System.err.println("Invalid data: " + Arrays.toString(arr));
+            }
+        }
+        return workers;
+    }
+
+    public static List<InstallerAvailable> getInstallationsAvailable() {
+        List<InstallerAvailable> workers = new ArrayList<>();
+        for (String value : getObjects("Installation")) {
+            String[] arr = value.split(",");
+
+            if (arr.length >= 6 && !arr[0].isEmpty() && !arr[4].isEmpty()&& !arr[5].isEmpty()) {
+                try {
+                    InstallerAvailable worker = new InstallerAvailable(
+                            Integer.parseInt(arr[0]),
+                            arr[1],
+                            arr[2],
+
+                            LocalDate.parse(arr[3]),
+                            LocalTime.parse(arr[4]), arr[5]
+                    );
+
+                    workers.add(worker);
+                } catch (NumberFormatException | DateTimeParseException e) {
+                    System.err.println("Error parsing data: " + Arrays.toString(arr));
+                    e.printStackTrace();
+                }
+            } else {
+                System.err.println("Invalid data: " + Arrays.toString(arr));
+            }
+        }
+        return workers;
+    }
+    public static int getInstallationId() {
+        int id;
+
+        id=getInstallation().get(getInstallation().size()-1).getId();
+        return id+1;
+    }
+    public static Installation getInstallationById(int id){
+        Installation worker=new Installation();
+        for (Installation worker1:getInstallations()){
+            if(worker1.getId()==id){
+                worker=worker1;
+                break;
+            }
+        }
+        return worker;
+    }
+
+
+    public static InstallerAvailable getInstallationAvailableById(int id,LocalDate date){
+        InstallerAvailable worker=new InstallerAvailable();
+        for (InstallerAvailable worker1:getInstallationsAvailable()){
+            if(worker1.getId()==id && worker1.getDate()==date){
+                worker=worker1;
+                break;
+            }
+        }
+        return worker;
+    }
+    Customer customer=new Customer();
+
+    public static void updateInstallation(List<Installation>workers){
+        try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/Back/InstallationApointments.txt", "rw")
+        ){
+            removeFileContent("InstallationApointments");
+            raf.seek(0);
+            for (Installation worker:workers) {
+                raf.writeBytes(worker.getId() + "," + worker.getNameProduct() + "," + worker.getService() + "," + worker.getNameCustomer() + "," +
+                        worker.getDate()  + "\r\n");
+
+            }
+        }
+        catch(Exception e){
+            logger.info(msg);
+
+        }}
+    }
+
+

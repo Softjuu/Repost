@@ -1,18 +1,14 @@
-package najah.edu;
-import java.io.*;
+package edu;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import entities.Customer;
 import entities.Data;
-import entities.Installation;
+import entities.InstallerAvailable;
 
-import najah.edu.InstallerAvailable;
 import java.time.LocalTime;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -22,8 +18,8 @@ import java.util.NoSuchElementException;
 import java.time.format.DateTimeParseException;
 public class CustomerLogin {
     private Customer customer;
-   
-     private InstallerAvailable worker;
+    private InstallerAvailable worker;
+   // static String path = "src/main/resources/back1/";
     static Logger logger = Logger.getLogger(Data.class.getName());
 
     public void menu(){
@@ -45,8 +41,7 @@ public class CustomerLogin {
             while ((line = br.readLine()) != null) {
                 content.append(line).append("\n");
             }
-        } catch (IOException e) {
-          
+        } catch (IOException e) { //
 
         }
         return content.toString();
@@ -57,7 +52,7 @@ public class CustomerLogin {
     private static void writeToFil(String fileName, String content) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
             bw.write(content);
-        } catch (IOException e) {
+        } catch (IOException e) {//
 
         }
     }
@@ -69,7 +64,7 @@ public class CustomerLogin {
     public void customerPage(){
         System.err.println("Welcome To The Customer Dashboard ");
         Scanner in=new Scanner(System.in);
-    
+
         menu();
         try {
             int option = in.nextInt();
@@ -77,7 +72,8 @@ public class CustomerLogin {
             while (true) {
                 if (option == 1) {
 
-                 
+                    Order  login=new  Order();
+                    login.setCustomer(this.customer);
 
 
 
@@ -111,13 +107,13 @@ public class CustomerLogin {
 
                         System.out.println("Done. " + inputData + " has been added .");
                         menu();
-                      
+                        //option = in.nextInt();
 
                     } else if (x ==2) {
 
                         System.err.println("OK");
                         menu();
-                      
+                  //      option = in.nextInt();
 
 
                     }
@@ -233,7 +229,9 @@ public class CustomerLogin {
 
                                     if (newDate.equals(installationDate) && available.equals("available")) {
 
-                                    
+                                      //  LocalDate  time =   LocalDate.parse( parts[4]);
+
+                                        //String  timing =parts[5];
 
                                         System.out.println( parts[0] +"  "+"  " + parts[1] +"  "+"  "+ parts[2]  +"    " + parts[3] +"    " + parts[4] +"    " + parts[5]);
 
@@ -291,10 +289,9 @@ public class CustomerLogin {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-            public void setInstaller(InstallerAvailable worker) {
+    public void setInstaller(InstallerAvailable customer) {
         this.worker = worker;
     }
-
 
     public void updateMsg() {
         System.err.println("Your Information Updated Successfully");
@@ -321,8 +318,8 @@ public class CustomerLogin {
         String[] lines = currentContent.split("\n");
       //  String available = "not-available";
 
-      for (String line : lines) {
-    String[] parts = line.split(",");
+        for (int i = 0; i < lines.length; i++) {
+            String[] parts = lines[i].split(",");
 
             if (parts.length > 0) {
                 try {

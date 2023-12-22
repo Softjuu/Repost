@@ -173,16 +173,7 @@ public class Data {
         return orders;
     }
 
-    public static Order getOrderByID(int id) {
-        Order order = new Order();
-        for (Order order1 : getOrders()) {
-            if (order1.getId() == id) {
-                order = order1;
-                break;
-            }
-        }
-        return order;
-    }
+   
 
     public static void updateOrders(List<Order> orders) {
         try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/Back/order.txt", "rw")

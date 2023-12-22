@@ -1,4 +1,4 @@
-package edu;
+package entities;
 
 import edu.Login;
 import edu.Order;

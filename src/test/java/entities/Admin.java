@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.Scanner;
 
 public class Admin {
     private String email;

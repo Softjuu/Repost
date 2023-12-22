@@ -45,7 +45,7 @@ public class CustomerLogin {
             while ((line = br.readLine()) != null) {
                 content.append(line).append("\n");
             }
-        } catch (IOException e) {
+        } catch (IOException e) {\\
 
         }
         return content.toString();

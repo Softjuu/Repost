@@ -175,19 +175,7 @@ public class Data {
 
    
 
-    public static void updateOrders(List<Order> orders) {
-        try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/Back/order.txt", "rw")
-        ) {
-            removeFileContent("order");
-            raf.seek(0);
-            for (Order order : orders) {
-                raf.write(order.toString().getBytes());
-            }
-        } catch (Exception e) {
-            logger.info(msg);
 
-        }
-    }
 
     public static List<Installation> getInstallation() {
         List<Installation> workers = new ArrayList<>();

@@ -26,11 +26,8 @@ public class AdminLogin {
 
     Admin admin = new Admin();
     Logger logger = Logger.getLogger(AdminLogin.class.getName());
-    String msg = "Enter valid number";
     String msgInv = "Invalid Input, try again";
-    String statusString = "waiting";
     private boolean logged;
-    private Customer customer;
 
     public void setEmail(String email) {
         this.admin.setEmail(email);

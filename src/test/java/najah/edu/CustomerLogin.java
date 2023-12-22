@@ -23,7 +23,7 @@ import java.time.format.DateTimeParseException;
 public class CustomerLogin {
     private Customer customer;
    
-  
+     private InstallerAvailable worker;
     static Logger logger = Logger.getLogger(Data.class.getName());
 
     public void menu(){
@@ -290,12 +290,12 @@ public class CustomerLogin {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-
-         public void setInstaller(InstallerAvailable customer) {
+    }
+            public void setInstaller(InstallerAvailable worker) {
         this.worker = worker;
     }
-    }
-  
+
+
     public void updateMsg() {
         System.err.println("Your Information Updated Successfully");
     }

@@ -23,9 +23,9 @@ import java.util.Scanner;
 public class AdminLogin {
 
 
-
     Admin admin = new Admin();
     Logger logger = Logger.getLogger(AdminLogin.class.getName());
+   
     String msgInv = "Invalid Input, try again";
     private boolean logged;
 
@@ -246,9 +246,24 @@ public class AdminLogin {
 
 
 
+    public boolean isExistOrder(int id) {
+        Order order = Data.getOrderByID(id);
+        return order.getId() == id;
+    }
 
-
-
+    public void changeStatus(int orderId, String status) {
+        List<Order> orders = Data.getOrders();
+        Customer customer = new Customer();
+        for (Order order : orders) {
+            if (order.getId() == orderId) {
+                customer = order.getCustomer();
+                // order.setStatus(status);
+                break;
+            }
+        }
+        Data.updateOrders(orders);
+        //  notifyCustomer(customer);
+    }
 
 
 
@@ -268,8 +283,9 @@ public class AdminLogin {
            else    if (option == 1) {
                   List<Customer> customers = Data.getCustomers();
                   System.err.println("****************************************************Customers**********************************************************");
-              System.err.println("ID               Name                                Email                           Mobile Number" +
-                      "                        Address");
+                  System.err.println("ID               Name                                Email                           Mobile Number" +
+                          "                        Address  " +
+                          "");
                   for (Customer customer : customers) {
                       System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) + customer.getEmail() + getSpaces(customer.getEmail())
                               + customer.getPhone() + getSpaces(customer.getPhone()) + customer.getAddress()
@@ -290,7 +306,7 @@ public class AdminLogin {
                   orderMenu();
 
               } else if (option == 4) {
-                 //  takenOrder();
+                  //   takenOrder();
               }
 
       } catch (Exception e) {
@@ -352,7 +368,7 @@ public class AdminLogin {
                         // Update the date in the line
                         Installation appointment = parseInstallationLine(line);
                         updateTime(appointment);
-                        newFileContent.append(appointment).append("\n");
+                        newFileContent.append(appointment.toString()).append("\n");
                     } else {
                         newFileContent.append(line).append("\n");
                     }
@@ -426,7 +442,7 @@ public class AdminLogin {
                             // Update the date in the line
                            Product appointment = parseProductLine(line);
                             updateState(appointment);
-                            newFileContent.append(appointment).append("\n");
+                            newFileContent.append(appointment.toString()).append("\n");
                         } else {
                             newFileContent.append(line).append("\n");
                         }

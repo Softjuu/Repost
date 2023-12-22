@@ -45,9 +45,9 @@ public class Main {
 
         logger.info("***************Welcome Back***************");
         while(true) {
-            logger.inf("Enter your email ");
+            logger.info("Enter your email ");
             String email = in.nextLine();
-            llogger.inf("Enter your password ");
+           logger.info("Enter your password ");
             String password = in.nextLine();
             Login login=new Login();
             login.setEmail(email);

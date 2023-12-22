@@ -1,13 +1,8 @@
 package entities;
 
-import najah.edu.Login;
-import najah.edu.Order;
-import najah.edu.Order;
-import java.io.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
+import edu.Login;
+import edu.Order;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -180,11 +175,11 @@ public class Data {
 
 
 
-   
+
 
     public static List<Installation> getInstallation() {
         List<Installation> workers = new ArrayList<>();
-        for (String value : getObjects("InstallationApointments")) {
+        for (String value : getObjects("InstallationAppointments")) {
             if (!value.isEmpty()) {
                 String[] arr = value.split(",");
                 if (arr.length >= 5 && !arr[0].isEmpty() && !arr[4].isEmpty()) {
@@ -212,7 +207,7 @@ public class Data {
 
     public static List<Installation> getInstallations() {
         List<Installation> workers = new ArrayList<>();
-        for (String value : getObjects("InstallationApointments")) {
+        for (String value : getObjects("InstallationAppointments")) {
             String[] arr = value.split(",");
 
             if (arr.length >= 7 && !arr[0].isEmpty() && !arr[4].isEmpty()&& !arr[5].isEmpty()&& !arr[6].isEmpty()) {
@@ -298,7 +293,7 @@ public class Data {
         }
         return workers;
     }
-   
+
     public static Installation getInstallationById(int id){
         Installation worker=new Installation();
         for (Installation worker1:getInstallations()){
@@ -322,7 +317,7 @@ public class Data {
         return worker;
     }
 
-  
+    
     }
 
 

@@ -1,7 +1,7 @@
 package entities;
 
-import edu.Login;
-import edu.Order;
+import najah.edu.Login;
+import najah.edu.Order;
 
 import java.io.*;
 import java.time.LocalDate;

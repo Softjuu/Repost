@@ -271,8 +271,7 @@ public class AdminLogin {
                   List<Customer> customers = Data.getCustomers();
                   System.err.println("****************************************************Customers**********************************************************");
                   System.err.println("ID               Name                                Email                           Mobile Number" +
-                          "                        Address  " +
-                          "");
+                          "                        Address  ");
                   for (Customer customer : customers) {
                       System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) + customer.getEmail() + getSpaces(customer.getEmail())
                               + customer.getPhone() + getSpaces(customer.getPhone()) + customer.getAddress()
@@ -624,7 +623,7 @@ public class AdminLogin {
     }
 
 
-    public String getSpaces(String att) {
+    public String getSpaces() {
        // return " ".repeat(Math.max(0, 35 - att.length()));
         return "";
     }

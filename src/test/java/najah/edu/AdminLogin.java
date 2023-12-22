@@ -11,7 +11,6 @@ import java.time.LocalDate;
 
 
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -23,18 +22,14 @@ import java.util.Scanner;
 
 
 public class AdminLogin {
-    CustomerLogin customerlogin;
+ 
 
 
-    static Logger logger1 = Logger.getLogger(Data.class.getName());
 
     Admin admin = new Admin();
     Logger logger = Logger.getLogger(AdminLogin.class.getName());
-    String msg = "Enter valid number";
     String msgInv = "Invalid Input, try again";
-    String statusString = "waiting";
     private boolean logged;
-    private Customer customer;
 
     public void setEmail(String email) {
         this.admin.setEmail(email);
@@ -97,7 +92,7 @@ public class AdminLogin {
                                         // Update the specified field in the line
                                         Customer customer = parseCustomerLine(line);
                                         updateField(customer, fieldName);
-                                        newFileContent.append(customer.toString()).append("\n");
+                                        newFileContent.append(customer).append("\n");
                                     } else {
                                         newFileContent.append(line).append("\n");
                                     }
@@ -222,7 +217,6 @@ public class AdminLogin {
 
 
     public void orderMenu() {
-        boolean cond = true;
         while (true) {
 
           //  logger.info("If you want to change the product coast enter number 1");
@@ -254,25 +248,9 @@ public class AdminLogin {
 
 
 
-    public boolean isExistOrder(int id) {
-        Order order = Data.getOrderByID(id);
-        return order.getId() == id;
-    }
+   
 
-    public void changeStatus(int orderId, String status) {
-        List<Order> orders = Data.getOrders();
-        Customer customer = new Customer();
-        for (Order order : orders) {
-            if (order.getId() == orderId) {
-                customer = order.getCustomer();
-                // order.setStatus(status);
-                break;
-            }
-        }
-        Data.updateOrders(orders);
-        //  notifyCustomer(customer);
-    }
-
+  
 
 
 
@@ -292,8 +270,7 @@ public class AdminLogin {
                   List<Customer> customers = Data.getCustomers();
                   System.err.println("****************************************************Customers**********************************************************");
                   System.err.println("ID               Name                                Email                           Mobile Number" +
-                          "                        Address  " +
-                          "");
+                     "                        Address");
                   for (Customer customer : customers) {
                       System.err.println(customer.getId() + "\t\t\t\t" + customer.getFullName() + getSpaces(customer.getFullName()) + customer.getEmail() + getSpaces(customer.getEmail())
                               + customer.getPhone() + getSpaces(customer.getPhone()) + customer.getAddress()
@@ -314,7 +291,7 @@ public class AdminLogin {
                   orderMenu();
 
               } else if (option == 4) {
-                  //   takenOrder();
+                   //  takenOrder();
               }
 
       } catch (Exception e) {

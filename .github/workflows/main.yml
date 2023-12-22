@@ -26,11 +26,13 @@ jobs:
           overwrite-settings: true
           job-status: success
 
-
-      - name: Step 3 - Build Maven Project
+      - name: Step 3 - Unshallow Git Repository
+        run: git fetch --unshallow
+        
+      - name: Step 4 - Build Maven Project
         run: mvn --batch-mode -DskipTests package
 
-      - name: Step 4 - Run test cases 
+      - name: Step 5 - Run test cases 
         run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
         
       - name: Cache SonarCloud packages

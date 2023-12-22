@@ -333,9 +333,8 @@ public class AdminLogin {
 
     public  void update(int x) {
 
-    int customerUniqueId =x;
+           String filePath = "src/main/resources/back1/InstallationApointments.txt";
 
-    String filePath = "src/main/resources/back1/InstallationApointments.txt";
 
                 try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
         StringBuilder newFileContent = new StringBuilder();
@@ -352,7 +351,7 @@ public class AdminLogin {
                         // Update the date in the line
                         Installation appointment = parseInstallationLine(line);
                         updateTime(appointment);
-                        newFileContent.append(appointment.toString()).append("\n");
+                        newFileContent.append(appointment).append("\n");
                     } else {
                         newFileContent.append(line).append("\n");
                     }
@@ -407,9 +406,8 @@ public class AdminLogin {
 
     public  void updateProduct(String x) {
 
-       String customerUniqueId =x;
+             String filePath = "src/main/resources/back1/product";
 
-        String filePath = "src/main/resources/back1/product";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             StringBuilder newFileContent = new StringBuilder();
@@ -426,7 +424,7 @@ public class AdminLogin {
                             // Update the date in the line
                            Product appointment = parseProductLine(line);
                             updateState(appointment);
-                            newFileContent.append(appointment.toString()).append("\n");
+                            newFileContent.append(appointment).append("\n");
                         } else {
                             newFileContent.append(line).append("\n");
                         }
@@ -476,44 +474,9 @@ public class AdminLogin {
 
 
 
-    public void workerOptions(int x) {
-        if (x == 1) {
-            recordWorker();
-        } else if (x == 2) {
-            deleteInstallation();
-        } else if (x == 3) {
-          // updateWorker();
+    
 
-        }
-    }
-
-
-
-    public void updateInstallations(String attribute, String value, Installation worker) {
-
-        if (attribute.equalsIgnoreCase("ProductName")) {
-            worker.setNameProduct(value);
-        } else if (attribute.equalsIgnoreCase("Service")) {
-            worker.setService(value);
-        } else if (attribute.equalsIgnoreCase("CustomerName")) {
-            worker.setNameCustomer(value);
-        } else if (attribute.equalsIgnoreCase("Date")) {
-            worker.setDate(LocalDate.parse(value));
-        }
-
-        List<Installation> workers = Data.getInstallation();
-        for (Installation worker1 : workers) {
-            int ind = workers.indexOf(worker1);
-            if (worker1.getId() == worker.getId()) {
-                workers.remove(ind);
-                workers.add(ind, worker);
-                break;
-            }
-        }
-
-        Data.updateInstallation(workers);
-    }
-
+   
 
 
 

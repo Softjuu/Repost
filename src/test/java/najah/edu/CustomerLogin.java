@@ -77,8 +77,7 @@ public class CustomerLogin {
             while (true) {
                 if (option == 1) {
 
-                    Order  login=new  Order();
-                    login.setCustomer(this.customer);
+                 
 
 
 

@@ -23,13 +23,13 @@ public class CustomerLogin {
     static Logger logger = Logger.getLogger(Data.class.getName());
 
     public void menu(){
-        System.err.println("If you want to add new order enter number 1");
-        System.err.println("If you want to see your orders enter number 2");
-        System.err.println("If you want to see your information enter number 3");
-        System.err.println("If you want to Update your information enter number 4");
-        System.err.println("If you want to see all product enter number 5");
-        System.err.println("If you want to logout enter number 6");
-        System.err.println("If you want request installation services enter number 7");
+        logger.info("If you want to add new order enter number 1");
+      logger.info("If you want to see your orders enter number 2");
+        logger.info("If you want to see your information enter number 3");
+        logger.info("If you want to Update your information enter number 4");
+      logger.info("If you want to see all product enter number 5");
+       logger.info("If you want to logout enter number 6");
+      logger.info("If you want request installation services enter number 7");
 
 
     }
@@ -62,7 +62,7 @@ public class CustomerLogin {
 
 
     public void customerPage(){
-        System.err.println("Welcome To The Customer Dashboard ");
+       logger.info("Welcome To The Customer Dashboard ");
         Scanner in=new Scanner(System.in);
 
         menu();
@@ -80,15 +80,15 @@ public class CustomerLogin {
                     String path = "src/main/resources/back1/";
                     try {
                     Scanner scanner = new Scanner(System.in);
-                    System.err.println("Enter the name of Product:");
+                   logger.info"Enter the name of Product:");
                     String inputData = scanner.nextLine();
 
 
-                    System.err.println("Enter the id of order:");
+                   logger.info("Enter the id of order:");
                     String inp = scanner.nextLine();
 
 
-                    System.err.println("Enter the number of Product to order:");
+                   logger.info("Enter the number of Product to order:");
                     String input = scanner.nextLine();
 
                     String fileName = path + "order.txt";
@@ -96,7 +96,7 @@ public class CustomerLogin {
                     int customerI = customer.getId();
                     String currentContent = readFromFil(fileName);
 
-                    System.err.println("If you want to confirm tho order enter 1 else enter 2 ");
+                   logger.info("If you want to confirm tho order enter 1 else enter 2 ");
 
                     int x = in.nextInt();
 
@@ -105,13 +105,13 @@ public class CustomerLogin {
                         String newContent = currentContent +customerI + " " +inp + " " + inputData + " " + input + "\n";
                         writeToFil(fileName, newContent);
 
-                        System.out.println("Done. " + inputData + " has been added .");
+                        logger.info("Done. " + inputData + " has been added .");
                         menu();
                         //option = in.nextInt();
 
                     } else if (x ==2) {
 
-                        System.err.println("OK");
+                      logger.info("OK");
                         menu();
                   //      option = in.nextInt();
 
@@ -119,7 +119,7 @@ public class CustomerLogin {
                     }
                     } catch (NoSuchElementException e) {
 
-                        System.err.println("Input not available. Please make sure to provide valid input.");
+                     logger.info("Input not available. Please make sure to provide valid input.");
                     }
                 }
 
@@ -128,7 +128,7 @@ public class CustomerLogin {
 
                     int customerUniqueId = customer.getId();
                     String filePath = "src/main/resources/back1/order.txt";
-                    System.err.println("CustomerName  email OrderID productName number of Products:");
+                   logger.info("CustomerName  email OrderID productName number of Products:");
 
                     try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
                         String line;
@@ -171,8 +171,8 @@ public class CustomerLogin {
 
                 else if(option==5) {
 
-                    System.err.println("****************************************************Installation Appointments**********************************************************");
-                    System.err.println("ProductName  NamePicture  State  " + " Category"
+                  logger.info("****************************************************Installation Appointments**********************************************************");
+                   logger.info("ProductName  NamePicture  State  " + " Category"
                             +
                             "Coast \t\t\t\t\t" +
                             " ");
@@ -193,7 +193,7 @@ public class CustomerLogin {
 
                                 bufferedReader.close();
                             } catch (IOException e) {
-                                System.err.println("error while reading " + e.getMessage());
+                             logger.info("error while reading " + e.getMessage());
                             }
                         }
 
@@ -203,15 +203,15 @@ public class CustomerLogin {
                     Scanner scanner = new Scanner(System.in);
                     String product = scanner.nextLine();
 
-                    System.err.println("Enter The Make of Your Car  ");
+                  logger.info("Enter The Make of Your Car  ");
                     String make = scanner.nextLine();
 
-                    System.err.println("Enter The Date you want  ");
+                 logger.info("Enter The Date you want  ");
                     String date = scanner.nextLine();
                  LocalDate  newDate =   LocalDate.parse(date);
 
-                    System.err.println("****************************************************Installation Appointments**********************************************************");
-                    System.err.println("InstallerID        InstallerName          State          Date          Time ")  ;
+                   logger.info("****************************************************Installation Appointments**********************************************************");
+                   logger.info("InstallerID        InstallerName          State          Date          Time ")  ;
 
 
                     String filePath = "src/main/resources/back1/Installation.txt";
@@ -231,7 +231,7 @@ public class CustomerLogin {
 
 
 
-                                        System.out.println( parts[0] +"  "+"  " + parts[1] +"  "+"  "+ parts[2]  +"    " + parts[3] +"    " + parts[4] +"    " + parts[5]);
+                                    logger.info( parts[0] +"  "+"  " + parts[1] +"  "+"  "+ parts[2]  +"    " + parts[3] +"    " + parts[4] +"    " + parts[5]);
 
 
                                     }
@@ -279,9 +279,9 @@ public class CustomerLogin {
 
 
     public void men(){
-        System.err.println("If you want to update your Phone enter number 1");
-        System.err.println("If you want to update your Address enter number 2");
-        System.err.println("If you want to update your Password enter number 3");
+    logger.info("If you want to update your Phone enter number 1");
+     logger.info("If you want to update your Address enter number 2");
+       logger.info("If you want to update your Password enter number 3");
     }
 
     public void setCustomer(Customer customer) {
@@ -292,7 +292,7 @@ public class CustomerLogin {
     }
 
     public void updateMsg() {
-        System.err.println("Your Information Updated Successfully");
+      logger.info("Your Information Updated Successfully");
     }
 
     public void updateInfo(String attribute, String value) {
@@ -333,7 +333,7 @@ public class CustomerLogin {
                     }
                 } catch (NumberFormatException | DateTimeParseException e) {
                     // Handle the case where parsing fails
-                    System.err.println("Error parsing id or date: " + e.getMessage());
+                   logger.info("Error parsing id or date: " + e.getMessage());
                 }
             }
         }

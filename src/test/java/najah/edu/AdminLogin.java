@@ -23,11 +23,14 @@ import java.util.Scanner;
 public class AdminLogin {
 
 
+
     Admin admin = new Admin();
     Logger logger = Logger.getLogger(AdminLogin.class.getName());
-   
+    String msg = "Enter valid number";
     String msgInv = "Invalid Input, try again";
+    String statusString = "waiting";
     private boolean logged;
+    private Customer customer;
 
     public void setEmail(String email) {
         this.admin.setEmail(email);
@@ -90,7 +93,7 @@ public class AdminLogin {
                                         // Update the specified field in the line
                                         Customer customer = parseCustomerLine(line);
                                         updateField(customer, fieldName);
-                                        newFileContent.append(customer).append("\n");
+                                        newFileContent.append(customer.toString()).append("\n");
                                     } else {
                                         newFileContent.append(line).append("\n");
                                     }
@@ -215,6 +218,7 @@ public class AdminLogin {
 
 
     public void orderMenu() {
+        boolean cond = true;
         while (true) {
 
           //  logger.info("If you want to change the product coast enter number 1");

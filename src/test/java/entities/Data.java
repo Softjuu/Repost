@@ -1,4 +1,4 @@
-package edu;
+package entities;
 
 import edu.Login;
 import edu.Order;
@@ -173,9 +173,30 @@ public class Data {
         return orders;
     }
 
-   
+    public static Order getOrderByID(int id) {
+        Order order = new Order();
+        for (Order order1 : getOrders()) {
+            if (order1.getId() == id) {
+                order = order1;
+                break;
+            }
+        }
+        return order;
+    }
 
+    public static void updateOrders(List<Order> orders) {
+        try (RandomAccessFile raf = new RandomAccessFile("src/main/resources/Back/order.txt", "rw")
+        ) {
+            removeFileContent("order");
+            raf.seek(0);
+            for (Order order : orders) {
+                raf.write(order.toString().getBytes());
+            }
+        } catch (Exception e) {
+            logger.info(msg);
 
+        }
+    }
 
     public static List<Installation> getInstallation() {
         List<Installation> workers = new ArrayList<>();

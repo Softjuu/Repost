@@ -511,7 +511,7 @@ public class AdminLogin {
 
 
             try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-                writer.print(newFileContent.toString());
+                writer.print(newFileContent);
                 System.err.println(" removed successfully");
             } catch (IOException e) {
                   e.printStackTrace();
@@ -549,10 +549,8 @@ public class AdminLogin {
 
     public void printInstallation() {
         System.err.println("****************************************************Installation Appointments**********************************************************");
-        System.err.println("InstallerID  ProductName  Service  " + " NameCustomer"
-                +
-                "Date   Time   \t\t\t\t\t" +
-                "");
+        System.err.println("InstallerID  ProductName  Service  NameCustomer" +
+                   "Date   Time   \t\t\t\t\t");
 
         String fileName = "src/main/resources/back1/InstallationApointments.txt";
 
@@ -580,10 +578,8 @@ public class AdminLogin {
 
     public void printProduct() {
         System.err.println("****************************************************Installation Appointments**********************************************************");
-        System.err.println("ProductName  picture name  " + " state"
-                +
-                "Catogry   cost    OrderID   \t\t\t\t\t" +
-                "");
+      System.err.println("ProductName  picture name  state" +
+                   "Catogry   cost    OrderID   \t\t\t\t\t");
 
         String fileName = "src/main/resources/back1/product";
 
@@ -620,17 +616,7 @@ public class AdminLogin {
             return flag == 1;
         }
 
-    public boolean isExistInstallation ( int id){
-        int flag = 0;
-        for (Installation customer : Data.getInstallations()) {
-            if (customer.getId() == id) {
-                flag = 1;
-                break;
-            }
-        }
-        return flag == 1;
-    }
-
+    
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
@@ -642,9 +628,7 @@ public class AdminLogin {
         return "";
     }
 
-    public void notExistMsg() {
-        logger.info("This Order is not exist on our orders");
-    }
+    
 
     public void setLogged(boolean b) {
         this.logged = b;

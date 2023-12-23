@@ -36,22 +36,22 @@ public class AdminLogin {
     }
 
     public void adminMenu() {
-        System.err.println("To See all customers details enter number 1 ");
-        System.err.println("To View all installation appointments enter number 2 ");
-        System.err.println("To See all product enter number 3 ");
+         logger.info("To See all customers details enter number 1 ");
+        logger.info("To View all installation appointments enter number 2 ");
+         logger.info("To See all product enter number 3 ");
         //System.err.println("To Add new order enter number 4");
 
-        System.err.println("To logout enter number 8");
+        logger.info("To logout enter number 8");
     }
 
     public void customerMenu() {
 
         while (true) {
-            System.err.println("If you want to add a new customer, enter number 1");
-            System.err.println("If you want to delete a customer, enter number 2");
+             logger.info("If you want to add a new customer, enter number 1");
+             logger.info("If you want to delete a customer, enter number 2");
         //    System.err.println("If you want to contact a customer, enter number 3");
-            System.err.println("If you want to update a customer, enter number 3");
-            System.err.println("If you want to go back, enter number 4");
+            logger.info"If you want to update a customer, enter number 3");
+          logger.info("If you want to go back, enter number 4");
 
             Scanner in = new Scanner(System.in);
 
@@ -304,10 +304,10 @@ public class AdminLogin {
     public void workerMenu() {
 
         while (true) {
-            System.err.println("If you want to add new installation appointments enter number 1");
-            System.err.println("If you want to delete installation appointments enter number 2");
-            System.err.println("If you want to update installation appointments time enter number 3");
-            System.err.println("If you want to back enter number 4");
+             logger.info("If you want to add new installation appointments enter number 1");
+            logger.info("If you want to delete installation appointments enter number 2");
+            logger.info("If you want to update installation appointments time enter number 3");
+            logger.info("If you want to back enter number 4");
 
             Scanner in = new Scanner(System.in);
             int x;

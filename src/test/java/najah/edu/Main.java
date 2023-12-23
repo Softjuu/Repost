@@ -48,10 +48,10 @@ public class Main {
             logger.info("Enter your email ");
             String email = in.nextLine();
            logger.info("Enter your password ");
-            String password = in.nextLine();
+            String enter = in.nextLine();
             Login login=new Login();
             login.setEmail(email);
-            login.setPassword(password);
+            login.setPassword(enter);
             if(email.equals("adminClean@gmail.com")){
                 login.setRul("admin");
             }

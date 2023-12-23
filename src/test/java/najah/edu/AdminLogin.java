@@ -50,7 +50,7 @@ public class AdminLogin {
              logger.info("If you want to add a new customer, enter number 1");
              logger.info("If you want to delete a customer, enter number 2");
         //    System.err.println("If you want to contact a customer, enter number 3");
-            logger.info"If you want to update a customer, enter number 3");
+            logger.info("If you want to update a customer, enter number 3");
           logger.info("If you want to go back, enter number 4");
 
             Scanner in = new Scanner(System.in);
